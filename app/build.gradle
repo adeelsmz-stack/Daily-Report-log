@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.sitelog.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.sitelog.app"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    // Fixed key: every new build installs over the old one and keeps the phone's data.
+    signingConfigs {
+        sitelog {
+            storeFile file('sitelog.jks')
+            storePassword 'sitelog123'
+            keyAlias 'sitelog'
+            keyPassword 'sitelog123'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.sitelog
+        }
+        debug {
+            signingConfig signingConfigs.sitelog
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.13.1'
+}
